@@ -1,0 +1,5 @@
+/* Add application styles & imports to this file! */
+
+.highcharts-plot-band {
+  opacity: 0.1;
+}
