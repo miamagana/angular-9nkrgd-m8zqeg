@@ -84,7 +84,7 @@ export class AppComponent {
             color: "#FF0000",
             value: 350,
             width: 1,
-            zIndex: 999
+            zIndex: 5
           }
         ]
       },
