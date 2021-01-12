@@ -142,7 +142,7 @@ export class AppComponent {
       tooltip: {
         crosshairs: true,
         shared: true,
-        valueSuffix: "h"
+        valueSuffix: " L/min"
       },
       yAxis: {
         opposite: true,
