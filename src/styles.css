@@ -3,3 +3,12 @@
 .highcharts-plot-band {
   opacity: 0.1;
 }
+
+.highcharts-legend-item-hidden text tspan {
+  fill: black;
+  font-weight: normal;
+}
+
+.highcharts-legend-item-hidden rect {
+  fill: #cdcdcd;
+}
