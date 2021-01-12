@@ -39,7 +39,7 @@ export class AppComponent {
     return data.map(entry => {
       const res = [];
       res.push(Date.parse(entry.datetime));
-      res.push(entry.usage);
+      res.push(entry.usage / 60);
       return res;
     });
   }
@@ -65,24 +65,20 @@ export class AppComponent {
         title: {
           text: ""
         },
-        labels: {
-          formatter: function() {
-            return Math.floor(this.value / 60);
-          }
-        },
-        max: 1440,
+        tickPositions: [0, 4, 8, 12, 16, 20, 24],
+        max: 24,
         plotBands: [
           {
             className: "red-region",
             color: "#FF0000",
-            from: 350,
-            to: 1440
+            from: 4,
+            to: 24
           }
         ],
         plotLines: [
           {
             color: "#FF0000",
-            value: 350,
+            value: 4,
             width: 1,
             zIndex: 5
           }
