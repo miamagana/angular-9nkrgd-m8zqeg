@@ -4,7 +4,7 @@
   opacity: 0.1;
 }
 
-.highcharts-legend-item-hidden text tspan {
+.highcharts-legend-item text tspan {
   fill: black;
   font-weight: normal;
 }

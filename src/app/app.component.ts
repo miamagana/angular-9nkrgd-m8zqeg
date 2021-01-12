@@ -9,6 +9,7 @@ import { data } from "./data";
 })
 export class AppComponent {
   chart: Chart;
+  combinedChart: Chart;
 
   constructor() {
     Highcharts.setOptions({
@@ -32,7 +33,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.init();
+    this.initChart();
+    this.initCombinedChart();
   }
 
   getData() {
@@ -44,8 +46,17 @@ export class AppComponent {
     });
   }
 
-  init() {
-    let chart = new Chart({
+  getCombinedData(key: string) {
+    return data.map(entry => {
+      const res = [];
+      res.push(Date.parse(entry.datetime));
+      res.push(entry[key]);
+      return res;
+    });
+  }
+
+  initChart() {
+    this.chart = new Chart({
       chart: {
         type: "column"
       },
@@ -115,6 +126,84 @@ export class AppComponent {
         }
       ]
     });
-    this.chart = chart;
+  }
+
+  initCombinedChart() {
+    this.combinedChart = new Chart({
+      chart: {
+        type: "column"
+      },
+      title: {
+        text: "Leaks"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      tooltip: {
+        crosshairs: true,
+        shared: true,
+        valueSuffix: "h"
+      },
+      yAxis: {
+        opposite: true,
+        title: {
+          text: ""
+        },
+        tickPositions: [0, 20, 40, 60, 80, 100],
+        max: 24,
+        plotBands: [
+          {
+            className: "red-region",
+            color: "#FF0000",
+            from: 24,
+            to: 100
+          }
+        ],
+        plotLines: [
+          {
+            color: "#FF0000",
+            value: 24,
+            width: 1,
+            zIndex: 5
+          }
+        ]
+      },
+      credits: {
+        enabled: false
+      },
+      plotOptions: {
+        column: {
+          minPointLength: 4,
+          pointPadding: 0.2,
+          groupPadding: 0,
+          borderWidth: 0,
+          shadow: false,
+          grouping: false
+        },
+        series: {
+          events: {
+            legendItemClick: function(e: any) {
+              e.preventDefault();
+            }
+          }
+        }
+      },
+      series: [
+        {
+          name: "LK_95 (L/min)",
+          data: this.getCombinedData("nonIntentionalLeaks95"),
+          color: "#ADD8FF"
+        },
+        {
+          name: "LK_50 (L/min)",
+          data: this.getCombinedData("nonIntentionalLeaks50")
+        },
+        {
+          name: "No data",
+          data: null,
+          visible: false
+        }
+      ]
+    });
   }
 }
