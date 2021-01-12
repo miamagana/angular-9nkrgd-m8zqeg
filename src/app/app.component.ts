@@ -107,6 +107,11 @@ export class AppComponent {
         {
           name: "Usage (h)",
           data: this.getData()
+        },
+        {
+          name: "No data",
+          data: null,
+          visible: false
         }
       ]
     });
