@@ -39,7 +39,7 @@ export class AppComponent {
     return data.map(entry => {
       const res = [];
       res.push(Date.parse(entry.datetime));
-      res.push(entry.usage / 60);
+      res.push(!!entry.usage ? entry.usage / 60 : entry.usage);
       return res;
     });
   }
